@@ -1,0 +1,12 @@
+{
+    "uri": "uri",
+    "charset": "UTF-8",
+    "httpMethod": "DELETE",
+    "headers": {
+        "header1": "header1",
+        "header2": "header2"
+    },
+    "connectionTimeoutMs": "123",
+    "socketTimeoutMs": "123",
+    "connectionRequestTimeoutMs": "123"
+}

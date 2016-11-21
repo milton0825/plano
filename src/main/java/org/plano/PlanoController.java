@@ -16,29 +16,27 @@ public class PlanoController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getEntry(@PathVariable String entryID,
             @RequestHeader String transactionGUID) {
-
+        return null;
     }
 
     @PostMapping(path = "/entries",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity addEntry() {
-        PlanoResponse planoResponse = new PlanoResponse();
-
-        return ResponseEntity.ok().body(planoResponse);
+        return null;
     }
 
     @PutMapping(path = "/entries/{entryID}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateEntry(@PathVariable String entryID) {
-
+        return null;
     }
 
     @DeleteMapping(path = "/entries/{entryID}",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity removeEntry(@PathVariable String entryID) {
-
+        return null;
     }
 
     @GetMapping(path = "/health", produces = MediaType.TEXT_PLAIN_VALUE)
