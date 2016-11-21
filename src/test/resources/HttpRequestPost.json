@@ -1,0 +1,13 @@
+{
+    "uri": "uri",
+    "payload": "payload",
+    "charset": "UTF-8",
+    "httpMethod": "POST",
+    "headers": {
+        "header1": "header1",
+        "header2": "header2"
+    },
+    "connectionTimeoutMs": "123",
+    "socketTimeoutMs": "123",
+    "connectionRequestTimeoutMs": "123"
+}
