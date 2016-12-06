@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class PlanoController {
 
-    @GetMapping(path = "/entries/{entryID}",
+    @GetMapping(path = "/requests/{requestID}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getEntry(@PathVariable String entryID,
+    public ResponseEntity getRequest(@PathVariable String requestID,
             @RequestHeader String transactionGUID) {
         return null;
     }
 
-    @PostMapping(path = "/entries",
+    @PostMapping(path = "/requests",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity addEntry() {
+    public ResponseEntity addRequest() {
         return null;
     }
 
-    @PutMapping(path = "/entries/{entryID}",
+    @PutMapping(path = "/requests/{requestID}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updateEntry(@PathVariable String entryID) {
+    public ResponseEntity updateRequest(@PathVariable String requestID) {
         return null;
     }
 
-    @DeleteMapping(path = "/entries/{entryID}",
+    @DeleteMapping(path = "/requests/{requestID}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity removeEntry(@PathVariable String entryID) {
+    public ResponseEntity removeRequest(@PathVariable String requestID) {
         return null;
     }
 

@@ -1,9 +1,16 @@
 package org.plano.worker;
 
 /**
- * Created by ctsai on 11/19/16.
+ * This interface defines the contract plano is going to use to invoke
+ * endpoint.
+ * @param <T> request type.
  */
 public interface EndpointInvoker<T> {
 
+    /**
+     * Calls the endpoint with the the request.
+     * @param input request.
+     * @return true if success, false if fail.
+     */
     boolean invoke(T input);
 }

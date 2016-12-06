@@ -19,7 +19,7 @@ import java.util.Map;
 
 
 /**
- * Created by ctsai on 11/19/16.
+ * This class provides methods to invoke endpoint with HTTP request.
  */
 public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
     private static final Logger LOG = LoggerFactory.getLogger(HttpEndpointInvoker.class);
@@ -32,6 +32,10 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
 
     private HttpClient httpClient;
 
+    /**
+     * Constructor.
+     * @param httpClient {@link HttpClient} Apache HTTP client.
+     */
     HttpEndpointInvoker(HttpClient httpClient) {
         if (httpClient == null) {
             throw new IllegalArgumentException("HttpClient can not be null.");
@@ -40,11 +44,16 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
         this.httpClient = httpClient;
     }
 
+    /**
+     * Invoke the endpoint with HTTP request.
+     * @param httpRequest HTTP request.
+     * @return true if success, false if fail.
+     */
     @Override
     public boolean invoke(HttpRequest httpRequest) {
         boolean isSuccess = false;
         try {
-            HttpUriRequest httpUriRequest= getHttpUriRequest(httpRequest);
+            HttpUriRequest httpUriRequest= createHttpUriRequest(httpRequest);
             HttpResponse httpResponse =  httpClient.execute(httpUriRequest);
             isSuccess = httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
         } catch (IOException | IllegalAccessException e) {
@@ -54,10 +63,10 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
         return isSuccess;
     }
 
-    private HttpUriRequest getHttpUriRequest(HttpRequest httpRequest)
+    private HttpUriRequest createHttpUriRequest(HttpRequest httpRequest)
             throws UnsupportedEncodingException, IllegalAccessException {
         if (httpRequest == null || !httpRequest.isValid()) {
-            throw new IllegalArgumentException("Invalid HttpRequest.");
+            throw new IllegalArgumentException("Invalid DynamoDBHttpRequest.");
         }
 
         RequestConfig requestConfig = RequestConfig.custom()
@@ -100,7 +109,7 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
                 break;
             }
             default: {
-                throw new IllegalArgumentException("Invalid HttpRequest.");
+                throw new IllegalArgumentException("Invalid DynamoDBHttpRequest.");
             }
         }
 
