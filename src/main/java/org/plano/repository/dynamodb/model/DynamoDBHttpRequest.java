@@ -1,5 +1,6 @@
-package org.plano.data;
+package org.plano.repository.dynamodb.model;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -12,27 +13,19 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * HTTP Request POJO.
+ * DynamoDBHttpRequest POJO.
  */
-public class HttpRequest {
-    private static final Logger LOG = LoggerFactory.getLogger(HttpRequest.class);
+@DynamoDBDocument
+public class DynamoDBHttpRequest {
+    private static final Logger LOG = LoggerFactory.getLogger(DynamoDBHttpRequest.class);
 
-    @NotNull
     private String uri;
-
     private String payload;
-
     private String charset;
-
-    @NotNull
     private String httpMethod;
-
     private Map<String, String> headers;
-
     private Integer connectionTimeoutMs;
-
     private Integer socketTimeoutMs;
-
     private Integer connectionRequestTimeoutMs;
 
     public boolean isValid() throws IllegalAccessException {
@@ -135,19 +128,19 @@ public class HttpRequest {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof HttpRequest)) {
+        if (!(o instanceof DynamoDBHttpRequest)) {
             return false;
         }
-        HttpRequest httpRequest = (HttpRequest)o;
+        DynamoDBHttpRequest dynamoDBHttpRequest = (DynamoDBHttpRequest)o;
 
-        return Objects.equals(uri, httpRequest.getUri()) &&
-                Objects.equals(payload, httpRequest.getPayload()) &&
-                Objects.equals(charset, httpRequest.getCharset()) &&
-                Objects.equals(httpMethod, httpRequest.getHttpMethod()) &&
-                Objects.equals(headers, httpRequest.getHeaders()) &&
-                Objects.equals(connectionTimeoutMs, httpRequest.getConnectionTimeoutMs()) &&
-                Objects.equals(socketTimeoutMs, httpRequest.getSocketTimeoutMs()) &&
-                Objects.equals(connectionRequestTimeoutMs, httpRequest.getConnectionRequestTimeoutMs());
+        return Objects.equals(uri, dynamoDBHttpRequest.getUri()) &&
+                Objects.equals(payload, dynamoDBHttpRequest.getPayload()) &&
+                Objects.equals(charset, dynamoDBHttpRequest.getCharset()) &&
+                Objects.equals(httpMethod, dynamoDBHttpRequest.getHttpMethod()) &&
+                Objects.equals(headers, dynamoDBHttpRequest.getHeaders()) &&
+                Objects.equals(connectionTimeoutMs, dynamoDBHttpRequest.getConnectionTimeoutMs()) &&
+                Objects.equals(socketTimeoutMs, dynamoDBHttpRequest.getSocketTimeoutMs()) &&
+                Objects.equals(connectionRequestTimeoutMs, dynamoDBHttpRequest.getConnectionRequestTimeoutMs());
     }
 
     @Override

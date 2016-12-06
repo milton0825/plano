@@ -1,9 +1,9 @@
 package org.plano.data;
 
-/**
- * Created by ctsai on 11/5/16.
- */
 
+/**
+ * PlanoResponse POJO.
+ */
 public class PlanoResponse {
     String href = "HREF";
 
