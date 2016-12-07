@@ -12,14 +12,14 @@ public interface Repository<T> {
     /**
      * Get request with requestID from repository.
      * @param requestID {@link String} RequestID.
-     * @return T request.
+     * @return <T> request.
      * @throws ResourceNotFoundException if resource not found.
      */
     T getRequest(String requestID) throws ResourceNotFoundException;
 
     /**
      * Save request to repository.
-     * @param request T Request.
+     * @param request <T> Request.
      * @return RequestID.
      * @throws InvalidRequestException if the request is invalid.
      */
@@ -27,14 +27,14 @@ public interface Repository<T> {
 
     /**
      * Update the request to repository.
-     * @param request T Request.
+     * @param request <T> Request.
      * @throws InvalidRequestException if the request is invalid.
      */
     void updateRequest(T request) throws InvalidRequestException;
 
     /**
      * Remove the request from repository.
-     * @param requestID T Request.
+     * @param requestID <T> Request.
      * @throws InvalidRequestException if the request is invalid.
      */
     void removeRequest(String requestID) throws InvalidRequestException;
@@ -48,7 +48,7 @@ public interface Repository<T> {
 
     /**
      * Update the request to repository and unlock.
-     * @param request Request.
+     * @param request <T> Request.
      * @throws InvalidRequestException if the request is invalid.
      */
     void updateRequestAndUnlock(T request) throws InvalidRequestException;

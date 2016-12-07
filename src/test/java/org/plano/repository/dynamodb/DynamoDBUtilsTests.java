@@ -6,9 +6,6 @@ import org.plano.data.PlanoRequest;
 import org.plano.repository.dynamodb.model.DynamoDBPlanoRequest;
 import utils.DynamoDBTestUtils;
 
-/**
- * Created by ctsai on 11/28/16.
- */
 public class DynamoDBUtilsTests {
 
     @Test(expected = IllegalArgumentException.class)

@@ -1,10 +1,13 @@
 package org.plano.repository;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.plano.repository.dynamodb.DynamoDBRepository;
 
-/**
- * Created by ctsai on 11/28/16.
- */
 public class RepositoryFactoryTests {
-
+    @Test
+    public void testCreateDynamoDBRepository() {
+        Repository repository = RepositoryFactory.create(RepositoryType.DYNAMODB);
+        Assert.assertTrue(repository instanceof DynamoDBRepository);
+    }
 }

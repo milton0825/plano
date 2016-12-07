@@ -3,13 +3,18 @@ package org.plano.repository;
 import org.plano.repository.dynamodb.DynamoDBRepository;
 
 /**
- * Created by ctsai on 11/26/16.
+ * Factory for creating {@link Repository}
  */
 public final class RepositoryFactory {
 
-    private static Repository create(String type) {
+    /**
+     * Create repository.
+     * @param repositoryType type of repository.
+     * @return {@link Repository}
+     */
+    public static Repository create(RepositoryType repositoryType) {
         Repository repository = null;
-        switch (RepositoryType.valueOf(type)) {
+        switch (repositoryType) {
             case DYNAMODB:
                 repository = new DynamoDBRepository();
                 break;
@@ -18,5 +23,5 @@ public final class RepositoryFactory {
         return repository;
     }
 
-    public RepositoryFactory() {}
+    public RepositoryFactory() {} // prevent instantiation
 }
