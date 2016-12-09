@@ -41,10 +41,9 @@ public interface Repository<T> {
 
     /**
      * Find the next request to execute and lock.
-     * @return T Request.
-     * @throws PlanoException if can not find request to execute.
+     * @return <T> Request, null if can not find request.
      */
-    T findNextRequestAndLock() throws PlanoException;
+    T findNextRequestAndLock();
 
     /**
      * Update the request to repository and unlock.

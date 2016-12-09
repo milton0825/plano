@@ -26,7 +26,7 @@ public class DataTestUtils {
 
     public static SchedulePolicy createSchedulePolicy() {
         SchedulePolicy schedulePolicy = new SchedulePolicy();
-        schedulePolicy.setExecutionIntervalInSeconds(100L);
+        schedulePolicy.setExecutionIntervalMs(100L);
         schedulePolicy.setMultiplier(2);
         schedulePolicy.setNumberOfExecutions(10);
 

@@ -27,7 +27,7 @@ public class DynamoDBTestUtils {
 
     public static DynamoDBSchedulePolicy createDynamoDBSchedulePolicy() {
         DynamoDBSchedulePolicy dynamoDBSchedulePolicy = new DynamoDBSchedulePolicy();
-        dynamoDBSchedulePolicy.setExecutionIntervalInSeconds(100L);
+        dynamoDBSchedulePolicy.setExecutionIntervalMs(100L);
         dynamoDBSchedulePolicy.setMultiplier(2);
         dynamoDBSchedulePolicy.setNumberOfExecutions(10);
 

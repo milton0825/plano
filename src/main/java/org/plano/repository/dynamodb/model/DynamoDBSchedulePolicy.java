@@ -12,7 +12,7 @@ import java.util.Objects;
 public class DynamoDBSchedulePolicy {
 
     private Integer multiplier;
-    private Long executionIntervalInSeconds;
+    private Long executionIntervalMs;
     private Integer numberOfExecutions;
 
     public Integer getMultiplier() {
@@ -23,12 +23,12 @@ public class DynamoDBSchedulePolicy {
         this.multiplier = multiplier;
     }
 
-    public Long getExecutionIntervalInSeconds() {
-        return executionIntervalInSeconds;
+    public Long getExecutionIntervalMs() {
+        return executionIntervalMs;
     }
 
-    public void setExecutionIntervalInSeconds(Long executionIntervalInSeconds) {
-        this.executionIntervalInSeconds = executionIntervalInSeconds;
+    public void setExecutionIntervalMs(Long executionIntervalMs) {
+        this.executionIntervalMs = executionIntervalMs;
     }
 
     public Integer getNumberOfExecutions() {
@@ -50,8 +50,8 @@ public class DynamoDBSchedulePolicy {
         DynamoDBSchedulePolicy dynamoDBSchedulePolicy = (DynamoDBSchedulePolicy)o;
 
         return Objects.equals(multiplier, dynamoDBSchedulePolicy.getMultiplier()) &&
-                Objects.equals(executionIntervalInSeconds,
-                        dynamoDBSchedulePolicy.getExecutionIntervalInSeconds()) &&
+                Objects.equals(executionIntervalMs,
+                        dynamoDBSchedulePolicy.getExecutionIntervalMs()) &&
                 Objects.equals(numberOfExecutions, dynamoDBSchedulePolicy.getNumberOfExecutions());
     }
 
@@ -59,7 +59,7 @@ public class DynamoDBSchedulePolicy {
     public int hashCode() {
         int result = 17;
         result = result * 31 + (multiplier == null ? 0 : multiplier.hashCode());
-        result = result * 31 + (executionIntervalInSeconds == null ? 0 : executionIntervalInSeconds.hashCode());
+        result = result * 31 + (executionIntervalMs == null ? 0 : executionIntervalMs.hashCode());
         result = result * 31 + (numberOfExecutions == null ? 0 : numberOfExecutions.hashCode());
 
         return result;

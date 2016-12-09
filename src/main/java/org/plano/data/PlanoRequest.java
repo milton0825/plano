@@ -2,6 +2,7 @@ package org.plano.data;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.plano.utils.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,21 @@ public class PlanoRequest {
 
     @NotNull
     private SchedulePolicy schedulePolicy;
+
+    public void updateForNextExecution() {
+        Integer numberOfExecutions = schedulePolicy.getNumberOfExecutions();
+        schedulePolicy.setNumberOfExecutions(numberOfExecutions-1);
+
+        Long executionIntervalMs = schedulePolicy.getExecutionIntervalMs();
+        Integer multiplier = schedulePolicy.getMultiplier();
+
+        executionIntervalMs = executionIntervalMs * multiplier;
+        executionIntervalMs = executionIntervalMs > Constants.MAX_EXECUTION_INTERVAL_MS ?
+                Constants.MAX_EXECUTION_INTERVAL_MS : executionIntervalMs;
+
+        schedulePolicy.setExecutionIntervalMs(executionIntervalMs);
+        executionTime = new Date(System.currentTimeMillis() + executionIntervalMs);
+    }
 
     public boolean isValid() throws IllegalAccessException {
         final Field[] fields = this.getClass().getDeclaredFields();

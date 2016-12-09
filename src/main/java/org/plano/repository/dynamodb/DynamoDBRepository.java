@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.marshallers.DateToStringMa
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
+import org.apache.commons.logging.Log;
 import org.plano.data.PlanoRequest;
 import org.plano.exception.InvalidRequestException;
 import org.plano.exception.PlanoException;
@@ -118,14 +119,18 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
 
     /**
      * Find the next request to execute and lock.
-     * @return {@link PlanoRequest}
-     * @throws PlanoException if can not find an available {@link PlanoRequest}
+     * @return {@link PlanoRequest}, null if can not find request.
      */
     @Override
-    public PlanoRequest findNextRequestAndLock() throws PlanoException {
-        DynamoDBPlanoRequest dynamoDBPlanoRequest = findNextRequest();
-        lockRequest(dynamoDBPlanoRequest);
-        PlanoRequest planoRequest = DynamoDBUtils.createPlanoRequest(dynamoDBPlanoRequest);
+    public PlanoRequest findNextRequestAndLock() {
+        PlanoRequest planoRequest = null;
+        try {
+            DynamoDBPlanoRequest dynamoDBPlanoRequest = findNextRequest();
+            lockRequest(dynamoDBPlanoRequest);
+            planoRequest = DynamoDBUtils.createPlanoRequest(dynamoDBPlanoRequest);
+        } catch (PlanoException e) {
+            LOG.debug(e.getMessage());
+        }
 
         return planoRequest;
     }
