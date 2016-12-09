@@ -73,7 +73,7 @@ public final class DynamoDBUtils {
         }
 
         SchedulePolicy schedulePolicy = new SchedulePolicy();
-        schedulePolicy.setExecutionIntervalInSeconds(dynamoDBSchedulePolicy.getExecutionIntervalInSeconds());
+        schedulePolicy.setExecutionIntervalMs(dynamoDBSchedulePolicy.getExecutionIntervalMs());
         schedulePolicy.setMultiplier(dynamoDBSchedulePolicy.getMultiplier());
         schedulePolicy.setNumberOfExecutions(dynamoDBSchedulePolicy.getNumberOfExecutions());
 
@@ -143,7 +143,7 @@ public final class DynamoDBUtils {
         }
 
         DynamoDBSchedulePolicy dynamoDBSchedulePolicy = new DynamoDBSchedulePolicy();
-        dynamoDBSchedulePolicy.setExecutionIntervalInSeconds(schedulePolicy.getExecutionIntervalInSeconds());
+        dynamoDBSchedulePolicy.setExecutionIntervalMs(schedulePolicy.getExecutionIntervalMs());
         dynamoDBSchedulePolicy.setMultiplier(schedulePolicy.getMultiplier());
         dynamoDBSchedulePolicy.setNumberOfExecutions(schedulePolicy.getNumberOfExecutions());
 

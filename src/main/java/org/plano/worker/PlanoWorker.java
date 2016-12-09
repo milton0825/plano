@@ -1,20 +1,68 @@
 package org.plano.worker;
 
+import org.plano.data.PlanoRequest;
+import org.plano.exception.PlanoException;
+import org.plano.repository.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+
 /**
- * Created by ctsai on 11/16/16.
+ * Plano Worker is responsible for finding requests from database and
+ * calling the endpoint.
  */
 public class PlanoWorker implements Runnable {
+    private static final Logger LOG = LoggerFactory.getLogger(PlanoWorker.class);
 
-    public void run() {
+    @Value("${plano.worker.sleep.time.ms}")
+    private Long sleepTimeMs;
 
+    private Repository<PlanoRequest> repositoryWrapper;
+    private EndpointInvoker<PlanoRequest> httpEndpointInvoker;
+
+    /**
+     * Constructor.
+     * @param repository {@link Repository} persistence data store.
+     * @param endpointInvoker {@link EndpointInvoker} service to call endpoint.
+     */
+    public PlanoWorker(Repository<PlanoRequest> repository,
+            EndpointInvoker<PlanoRequest> endpointInvoker) {
+        this.repositoryWrapper = repository;
+        this.httpEndpointInvoker = endpointInvoker;
     }
 
+    @Override
+    public void run() {
+        try {
+            execute();
+        } catch (PlanoException e) {
+            LOG.debug("Exception caught when PlanoWorker is running.", e);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            LOG.debug("Thread is interrupted", e);
+        }
+    }
 
-    public void execute() {
-        // Retrieve next request from db
+    public void execute() throws PlanoException, InterruptedException {
+        PlanoRequest planoRequest;
+        while (!Thread.currentThread().isInterrupted()) {
+            planoRequest = repositoryWrapper.findNextRequestAndLock();
+            while (planoRequest == null) {
+                Thread.sleep(sleepTimeMs);
+                planoRequest = repositoryWrapper.findNextRequestAndLock();
+            }
 
-        // send http request to client
+            boolean isSuccess = httpEndpointInvoker.invoke(planoRequest);
+            if (isSuccess) {
+                repositoryWrapper.removeRequest(planoRequest.getRequestID());
+            } else {
+                planoRequest.updateForNextExecution();
+                repositoryWrapper.updateRequestAndUnlock(planoRequest);
+            }
+        }
+    }
 
-        // if timeout, calculate the next execution time and store back to db
+    public void setSleepTimeMs(Long sleepTimeMs) {
+        this.sleepTimeMs = sleepTimeMs;
     }
 }

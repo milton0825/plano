@@ -26,7 +26,7 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
     /**
      * Get request with requestID from repository.
      * @param requestID {@link String} RequestID.
-     * @return <T> request.
+     * @return {@link PlanoRequest} request.
      * @throws ResourceNotFoundException if resource not found.
      */
     @Override
@@ -36,7 +36,7 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Save request to repository.
-     * @param request <T> Request.
+     * @param request {@link PlanoRequest} Request.
      * @return RequestID.
      * @throws InvalidRequestException if the request is invalid.
      */
@@ -47,7 +47,7 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Update the request to repository.
-     * @param request <T> Request.
+     * @param request {@link PlanoRequest} Request.
      * @throws InvalidRequestException if the request is invalid.
      */
     @Override
@@ -57,7 +57,7 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Remove the request from repository.
-     * @param requestID <T> Request.
+     * @param requestID {@link PlanoRequest} Request.
      * @throws InvalidRequestException if the request is invalid.
      */
     @Override
@@ -67,17 +67,16 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Find the next request to execute and lock.
-     * @return T Request.
-     * @throws PlanoException if can not find request to execute.
+     * @return {@link PlanoRequest}, null if can not find request to execute.
      */
     @Override
-    public PlanoRequest findNextRequestAndLock() throws PlanoException {
+    public PlanoRequest findNextRequestAndLock(){
         return repository.findNextRequestAndLock();
     }
 
     /**
      * Update the request to repository and unlock.
-     * @param request <T> Request.
+     * @param request {@link PlanoRequest} Request.
      * @throws InvalidRequestException if the request is invalid.
      */
     @Override
