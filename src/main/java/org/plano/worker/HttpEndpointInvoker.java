@@ -6,7 +6,9 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
+import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.plano.data.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,7 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
      * Constructor.
      * @param httpClient {@link HttpClient} Apache HTTP client.
      */
-    HttpEndpointInvoker(HttpClient httpClient) {
+    public HttpEndpointInvoker(HttpClient httpClient) {
         if (httpClient == null) {
             throw new IllegalArgumentException("HttpClient can not be null.");
         }
@@ -53,7 +55,7 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
     public boolean invoke(HttpRequest httpRequest) {
         boolean isSuccess = false;
         try {
-            HttpUriRequest httpUriRequest= createHttpUriRequest(httpRequest);
+            HttpUriRequest httpUriRequest = createHttpUriRequest(httpRequest);
             HttpResponse httpResponse =  httpClient.execute(httpUriRequest);
             isSuccess = httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK;
         } catch (IOException | IllegalAccessException e) {

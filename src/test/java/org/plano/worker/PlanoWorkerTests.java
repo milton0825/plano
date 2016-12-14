@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.plano.data.HttpRequest;
 import org.plano.data.PlanoRequest;
 import org.plano.exception.InvalidRequestException;
 import org.plano.repository.Repository;
@@ -14,7 +15,7 @@ public class PlanoWorkerTests {
     private Repository<PlanoRequest> repository;
 
     @Mock
-    private EndpointInvoker<PlanoRequest> httpEndpointInvoker;
+    private EndpointInvoker<HttpRequest> httpEndpointInvoker;
 
     private PlanoWorker planoWorker;
 
@@ -58,7 +59,7 @@ public class PlanoWorkerTests {
         thread.interrupt();
 
         Mockito.verify(repository, Mockito.atLeastOnce()).findNextRequestAndLock();
-        Mockito.verify(httpEndpointInvoker, Mockito.never()).invoke(Mockito.any(PlanoRequest.class));
+        Mockito.verify(httpEndpointInvoker, Mockito.never()).invoke(Mockito.any(HttpRequest.class));
         Mockito.verify(repository, Mockito.never()).removeRequest(Mockito.anyString());
         Mockito.verify(repository, Mockito.never()).updateRequestAndUnlock(Mockito.any(PlanoRequest.class));
     }
@@ -67,7 +68,7 @@ public class PlanoWorkerTests {
     public void testWhenInvokeSuccessThenRemoveRequest() throws InvalidRequestException, InterruptedException {
         PlanoRequest mockedPlanoRequest = Mockito.mock(PlanoRequest.class);
         Mockito.when(repository.findNextRequestAndLock()).thenReturn(mockedPlanoRequest);
-        Mockito.when(httpEndpointInvoker.invoke(Mockito.eq(mockedPlanoRequest))).thenReturn(true);
+        Mockito.when(httpEndpointInvoker.invoke(Mockito.any(HttpRequest.class))).thenReturn(true);
 
         Thread thread = new Thread(planoWorker);
         thread.start();
@@ -83,7 +84,7 @@ public class PlanoWorkerTests {
     public void testWhenInvokeFailureThenUpdateRequestAndUnlock() throws InvalidRequestException, InterruptedException {
         PlanoRequest mockedPlanoRequest = Mockito.mock(PlanoRequest.class);
         Mockito.when(repository.findNextRequestAndLock()).thenReturn(mockedPlanoRequest);
-        Mockito.when(httpEndpointInvoker.invoke(Mockito.eq(mockedPlanoRequest))).thenReturn(false);
+        Mockito.when(httpEndpointInvoker.invoke(Mockito.any(HttpRequest.class))).thenReturn(false);
 
         Thread thread = new Thread(planoWorker);
         thread.start();

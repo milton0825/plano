@@ -1,5 +1,6 @@
 package org.plano.worker;
 
+import org.plano.data.HttpRequest;
 import org.plano.data.PlanoRequest;
 import org.plano.exception.PlanoException;
 import org.plano.repository.Repository;
@@ -18,7 +19,7 @@ public class PlanoWorker implements Runnable {
     private Long sleepTimeMs;
 
     private Repository<PlanoRequest> repositoryWrapper;
-    private EndpointInvoker<PlanoRequest> httpEndpointInvoker;
+    private EndpointInvoker<HttpRequest> httpEndpointInvoker;
 
     /**
      * Constructor.
@@ -26,7 +27,7 @@ public class PlanoWorker implements Runnable {
      * @param endpointInvoker {@link EndpointInvoker} service to call endpoint.
      */
     public PlanoWorker(Repository<PlanoRequest> repository,
-            EndpointInvoker<PlanoRequest> endpointInvoker) {
+            EndpointInvoker<HttpRequest> endpointInvoker) {
         this.repositoryWrapper = repository;
         this.httpEndpointInvoker = endpointInvoker;
     }
@@ -52,7 +53,7 @@ public class PlanoWorker implements Runnable {
                 planoRequest = repositoryWrapper.findNextRequestAndLock();
             }
 
-            boolean isSuccess = httpEndpointInvoker.invoke(planoRequest);
+            boolean isSuccess = httpEndpointInvoker.invoke(planoRequest.getHttpRequest());
             if (isSuccess) {
                 repositoryWrapper.removeRequest(planoRequest.getRequestID());
             } else {

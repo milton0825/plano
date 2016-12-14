@@ -112,23 +112,25 @@ public class DynamoDBRepositoryTests {
         Assert.assertEquals(planoRequest, retrievedRequest);
     }
 
-    @Test(expected = PlanoException.class)
-    public void testFindNextRequestAndLockAvoidFutureRequest() throws PlanoException {
+    @Test
+    public void testFindNextRequestAndLockNotReturnFutureRequest() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
         Date futureDate = new Date(System.currentTimeMillis() + 100000L);
         planoRequest.setExecutionTime(futureDate);
         dynamoDBRepository.addRequest(planoRequest);
-        dynamoDBRepository.findNextRequestAndLock();
+        PlanoRequest nextPlanoRequest = dynamoDBRepository.findNextRequestAndLock();
 
-        Assert.fail("FindNextRequestAndLock should not return PlanoRequest with execution time in the future");
+        Assert.assertNull(nextPlanoRequest);
     }
 
-    @Test(expected = PlanoException.class)
-    public void testFindNextRequestAndLockAcquireLock() throws PlanoException {
+    @Test
+    public void testFindNextRequestAndLockNotReturnLockedRequest() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
         dynamoDBRepository.addRequest(planoRequest);
         dynamoDBRepository.findNextRequestAndLock();
-        dynamoDBRepository.findNextRequestAndLock();
+        PlanoRequest retrievedRequest = dynamoDBRepository.findNextRequestAndLock();
+
+        Assert.assertNull(retrievedRequest);
     }
 
     @Test
