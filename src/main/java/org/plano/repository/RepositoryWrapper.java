@@ -5,20 +5,20 @@ import org.plano.exception.InvalidRequestException;
 import org.plano.exception.PlanoException;
 import org.plano.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 /**
  * Wrapper of repository.
  */
+@Component
 public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     private Repository<PlanoRequest> repository;
 
-    @Value("${repository.type}")
     private String repositoryType;
 
-    @PostConstruct
     public void init() {
         repository = RepositoryFactory.create(RepositoryType.valueOf(repositoryType));
     }

@@ -12,7 +12,7 @@ import org.plano.data.SchedulePolicy;
 public class DynamoDBPlanoRequestTests {
     @Test
     public void testDynamoDBPlanoRequestShouldMatchPlanoRequest() {
-        Assert.assertEquals(PlanoRequest.class.getDeclaredFields().length-1,
+        Assert.assertEquals(PlanoRequest.class.getDeclaredFields().length+1,
                 DynamoDBPlanoRequest.class.getDeclaredFields().length);
     }
 

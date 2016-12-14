@@ -7,6 +7,7 @@ import org.apache.http.ProtocolVersion;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.message.BasicStatusLine;
 import org.junit.Assert;
@@ -176,7 +177,7 @@ public class HttpEndpointInvokerTests {
         Assert.assertFalse(httpEndpointInvoker.invoke(httpRequest));
     }
 
-    private HttpResponse createHttpResponse(int statusCode) {
+    private BasicHttpResponse createHttpResponse(int statusCode) {
         ProtocolVersion protocolVersion = new ProtocolVersion("HTTP", 1, 0);
         StatusLine statusLine = new BasicStatusLine(protocolVersion, statusCode, "good");
         return new BasicHttpResponse(statusLine);
