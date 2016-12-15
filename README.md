@@ -7,12 +7,12 @@ Plano is a simple scheduling service that allows clients to schedule asynchronou
 Plano provides convenient HTTP APIs for client to create, read, update and delete requests.
 
 ## GET
-'''
+```
 GET host:port/requests/{requestID} HTTP/1.1
-'''
+```
 
 ## POST
-'''
+```
 POST host:port/requests HTTP/1.1
 
 {
@@ -36,10 +36,10 @@ POST host:port/requests HTTP/1.1
         "numberOfExecutions":10
     }
 }
-'''
+```
 
 ## PUT
-'''
+```
 PUT host:port/requests/{requestID} HTTP/1.1
 
 {
@@ -63,12 +63,12 @@ PUT host:port/requests/{requestID} HTTP/1.1
         "numberOfExecutions":10
     }
 }
-'''
+```
 
 ## DELETE
-'''
+```
 DELETE host:port/requests/{requestID} HTTP/1.1
-'''
+```
 
 # Building Plano from Source
 ```
