@@ -1,4 +1,3 @@
 language: java
-before_install: mvn io.takari:maven:wrapper
-install: ./mvnw clean install -DskipTests
-script: ./mvnw test
+install: mvn clean install -DskipTests
+script: mvn test
