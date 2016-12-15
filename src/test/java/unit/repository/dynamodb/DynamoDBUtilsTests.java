@@ -1,8 +1,9 @@
-package org.plano.repository.dynamodb;
+package unit.repository.dynamodb;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.plano.data.PlanoRequest;
+import org.plano.repository.dynamodb.DynamoDBUtils;
 import org.plano.repository.dynamodb.model.DynamoDBPlanoRequest;
 import utils.DynamoDBTestUtils;
 

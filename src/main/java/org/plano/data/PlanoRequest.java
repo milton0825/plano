@@ -41,17 +41,18 @@ public class PlanoRequest {
         executionTime = new Date(System.currentTimeMillis() + executionIntervalMs);
     }
 
-    public boolean isValid() throws IllegalAccessException {
+    public boolean isValid() {
         final Field[] fields = this.getClass().getDeclaredFields();
-
-        for (Field field : fields)
-        {
-            if (field.isAnnotationPresent(NotNull.class) && field.get(this) == null)
-            {
-                return false;
+        try {
+            for (Field field : fields) {
+                if (field.isAnnotationPresent(NotNull.class) && field.get(this) == null) {
+                    return false;
+                }
             }
+        } catch (IllegalAccessException e) {
+            String message = String.format("Failed when validating PlanoRequest: {0}", this);
+            LOG.error(message, e.getCause());
         }
-
         return true;
     }
 

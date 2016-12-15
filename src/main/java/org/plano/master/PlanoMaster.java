@@ -36,7 +36,7 @@ public class PlanoMaster implements Master {
     private Long schedulePeriodMs;
 
     @PostConstruct
-    void init() {
+    public void init() {
         scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(threadPoolSize);
     }
 
