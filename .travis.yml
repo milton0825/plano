@@ -1,3 +1,0 @@
-language: java
-install: mvn clean install -DskipTests
-script: mvn test
