@@ -1,9 +1,10 @@
-package org.plano.master;
+package unit.master;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.plano.master.PlanoMaster;
 import org.plano.worker.PlanoWorker;
 
 public class PlanoMasterTests {

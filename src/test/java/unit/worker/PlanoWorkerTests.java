@@ -1,4 +1,4 @@
-package org.plano.worker;
+package unit.worker;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,8 @@ import org.plano.data.HttpRequest;
 import org.plano.data.PlanoRequest;
 import org.plano.exception.InvalidRequestException;
 import org.plano.repository.Repository;
+import org.plano.worker.EndpointInvoker;
+import org.plano.worker.PlanoWorker;
 
 public class PlanoWorkerTests {
     @Mock

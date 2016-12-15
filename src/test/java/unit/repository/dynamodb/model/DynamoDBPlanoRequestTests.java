@@ -1,10 +1,13 @@
-package org.plano.repository.dynamodb.model;
+package unit.repository.dynamodb.model;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.plano.data.HttpRequest;
 import org.plano.data.PlanoRequest;
 import org.plano.data.SchedulePolicy;
+import org.plano.repository.dynamodb.model.DynamoDBHttpRequest;
+import org.plano.repository.dynamodb.model.DynamoDBPlanoRequest;
+import org.plano.repository.dynamodb.model.DynamoDBSchedulePolicy;
 
 /**
  * Created by ctsai on 11/28/16.

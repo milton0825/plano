@@ -1,14 +1,23 @@
-package org.plano.repository.dynamodb;
+package unit.repository.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.local.embedded.DynamoDBEmbedded;
-import com.amazonaws.services.dynamodbv2.model.*;
-import org.junit.*;
+import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
+import com.amazonaws.services.dynamodbv2.model.CreateTableResult;
+import com.amazonaws.services.dynamodbv2.model.DeleteTableRequest;
+import com.amazonaws.services.dynamodbv2.model.DeleteTableResult;
+import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.plano.data.PlanoRequest;
 import org.plano.exception.InvalidRequestException;
 import org.plano.exception.PlanoException;
 import org.plano.exception.ResourceNotFoundException;
+import org.plano.repository.dynamodb.DynamoDBRepository;
 import org.plano.repository.dynamodb.model.DynamoDBPlanoRequest;
 import utils.DataTestUtils;
 
