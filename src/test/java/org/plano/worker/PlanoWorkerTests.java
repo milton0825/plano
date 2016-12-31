@@ -105,7 +105,8 @@ public class PlanoWorkerTests {
         Thread.sleep(500L);
         thread.interrupt();
 
-        Integer numberOfUpdates = numberOfExecutions-1;
-        Mockito.verify(repository, Mockito.times(numberOfUpdates)).updateRequestAndUnlock(Mockito.any(PlanoRequest.class));
+        Integer numberOfUpdates = numberOfExecutions - 1;
+        Mockito.verify(repository, Mockito.times(numberOfUpdates))
+                .updateRequestAndUnlock(Mockito.any(PlanoRequest.class));
     }
 }

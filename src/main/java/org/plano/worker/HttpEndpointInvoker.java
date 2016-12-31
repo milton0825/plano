@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-
 /**
  * This class provides methods to invoke endpoint with HTTP request.
  */
@@ -35,7 +34,7 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
 
     /**
      * Constructor.
-     * @param httpClient {@link HttpClient} Apache HTTP client.
+     * @param httpClient {@link HttpClient} Apache HTTP client
      */
     public HttpEndpointInvoker(HttpClient httpClient) {
         if (httpClient == null) {
@@ -47,8 +46,8 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
 
     /**
      * Invoke the endpoint with HTTP request.
-     * @param httpRequest HTTP request.
-     * @return true if success, false if fail.
+     * @param httpRequest HTTP request
+     * @return true if success, false if fail
      */
     @Override
     public boolean invoke(HttpRequest httpRequest) {

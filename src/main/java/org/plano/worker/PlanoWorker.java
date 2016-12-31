@@ -32,14 +32,14 @@ public class PlanoWorker implements Runnable {
 
     /**
      * Constructor.
-     * @param repository {@link Repository} persistence data store.
-     * @param endpointInvoker {@link EndpointInvoker} service to call endpoint.
+     * @param repository {@link Repository} persistence data store
+     * @param endpointInvoker {@link EndpointInvoker} service to call endpoint
      */
     @Autowired
     public PlanoWorker(@Qualifier("RepositoryWrapper") Repository<PlanoRequest> repository,
                        @Qualifier("HttpEndpointInvoker") EndpointInvoker<HttpRequest> endpointInvoker) {
-        this.repositoryWrapper = repository;
-        this.httpEndpointInvoker = endpointInvoker;
+        repositoryWrapper = repository;
+        httpEndpointInvoker = endpointInvoker;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class PlanoWorker implements Runnable {
         }
     }
 
-    public void execute() throws PlanoException, InterruptedException {
+    private void execute() throws PlanoException, InterruptedException {
         PlanoRequest planoRequest;
         while (!Thread.currentThread().isInterrupted()) {
             planoRequest = repositoryWrapper.findNextRequestAndLock();
@@ -79,7 +79,11 @@ public class PlanoWorker implements Runnable {
         }
     }
 
+    /**
+     * Set sleep time for thread.
+     * @param sleepTimeMs thread sleep time
+     */
     public void setSleepTimeMs(Long sleepTimeMs) {
-        this.sleepTimeMs = sleepTimeMs;
+        sleepTimeMs = sleepTimeMs;
     }
 }

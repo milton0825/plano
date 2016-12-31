@@ -7,7 +7,7 @@ public class PlanoException extends Exception {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor
+     * Constructor.
      * @param message {@link String}
      */
     public PlanoException(String message) {
@@ -15,7 +15,7 @@ public class PlanoException extends Exception {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param cause {@link Throwable}
      */
     public PlanoException(Throwable cause) {
@@ -23,7 +23,7 @@ public class PlanoException extends Exception {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param message {@link String}
      * @param cause {@link Throwable}
      */

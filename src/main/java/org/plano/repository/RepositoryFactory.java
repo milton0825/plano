@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Factory for creating {@link Repository}
+ * Factory for creating {@link Repository}.
  */
 @Component
 public class RepositoryFactory {
@@ -15,13 +15,14 @@ public class RepositoryFactory {
 
     /**
      * Create repository.
-     * @param repositoryType type of repository.
+     * @param repositoryType type of repository
      * @return {@link Repository}
      */
     public Repository create(RepositoryType repositoryType) {
         Repository repository = null;
         switch (repositoryType) {
             case DYNAMODB:
+            default:
                 repository = dynamoDBRepository;
                 break;
         }

@@ -23,6 +23,18 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
     @Value("${repository.type}")
     private String repositoryType;
 
+    /**
+     * Constructor.
+     * @param repositoryFactory {@link RepositoryFactory}
+     */
+    @Autowired
+    public RepositoryWrapper(RepositoryFactory repositoryFactory) {
+        this.repositoryFactory = repositoryFactory;
+    }
+
+    /**
+     * Initialize {@link RepositoryWrapper} after all dependencies are injected.
+     */
     @PostConstruct
     public void init() {
         repository = repositoryFactory.create(RepositoryType.valueOf(repositoryType));
@@ -30,9 +42,9 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Get request with requestID from repository.
-     * @param requestID {@link String} RequestID.
-     * @return {@link PlanoRequest} request.
-     * @throws ResourceNotFoundException if resource not found.
+     * @param requestID {@link String} RequestID
+     * @return {@link PlanoRequest} request
+     * @throws ResourceNotFoundException if resource not found
      */
     @Override
     public PlanoRequest getRequest(String requestID) throws ResourceNotFoundException {
@@ -41,9 +53,9 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Save request to repository.
-     * @param request {@link PlanoRequest} Request.
-     * @return RequestID.
-     * @throws InvalidRequestException if the request is invalid.
+     * @param request {@link PlanoRequest} Request
+     * @return RequestID
+     * @throws InvalidRequestException if the request is invalid
      */
     @Override
     public String addRequest(PlanoRequest request) throws InvalidRequestException {
@@ -52,8 +64,8 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Update the request to repository.
-     * @param request {@link PlanoRequest} Request.
-     * @throws InvalidRequestException if the request is invalid.
+     * @param request {@link PlanoRequest} Request
+     * @throws InvalidRequestException if the request is invalid
      */
     @Override
     public void updateRequest(PlanoRequest request) throws InvalidRequestException {
@@ -62,8 +74,8 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Remove the request from repository.
-     * @param requestID {@link PlanoRequest} Request.
-     * @throws ResourceNotFoundException if the request is not found.
+     * @param requestID {@link PlanoRequest} Request
+     * @throws ResourceNotFoundException if the request is not found
      */
     @Override
     public void removeRequest(String requestID) throws ResourceNotFoundException {
@@ -72,17 +84,17 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Find the next request to execute and lock.
-     * @return {@link PlanoRequest}, null if can not find request to execute.
+     * @return {@link PlanoRequest}, null if can not find request to execute
      */
     @Override
-    public PlanoRequest findNextRequestAndLock(){
+    public PlanoRequest findNextRequestAndLock() {
         return repository.findNextRequestAndLock();
     }
 
     /**
      * Update the request to repository and unlock.
-     * @param request {@link PlanoRequest} Request.
-     * @throws InvalidRequestException if the request is invalid.
+     * @param request {@link PlanoRequest} Request
+     * @throws InvalidRequestException if the request is invalid
      */
     @Override
     public void updateRequestAndUnlock(PlanoRequest request) throws InvalidRequestException {
@@ -91,7 +103,7 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     /**
      * Set RepositoryType.
-     * @param repositoryType type of repository.
+     * @param repositoryType type of repository
      */
     protected void setRepositoryType(String repositoryType) {
         this.repositoryType = repositoryType;

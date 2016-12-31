@@ -35,7 +35,11 @@ public class HttpRequest {
 
     private Integer connectionRequestTimeoutMs;
 
-    public boolean isValid(){
+    /**
+     * Check if {@link HttpRequest} is valid.
+     * @return true if {@link HttpRequest} is valid
+     */
+    public boolean isValid() {
         final Field[] fields = this.getClass().getDeclaredFields();
         try {
             for (Field field : fields) {
@@ -140,16 +144,16 @@ public class HttpRequest {
         if (!(o instanceof HttpRequest)) {
             return false;
         }
-        HttpRequest httpRequest = (HttpRequest)o;
+        HttpRequest httpRequest = (HttpRequest) o;
 
-        return Objects.equals(uri, httpRequest.getUri()) &&
-                Objects.equals(payload, httpRequest.getPayload()) &&
-                Objects.equals(charset, httpRequest.getCharset()) &&
-                Objects.equals(httpMethod, httpRequest.getHttpMethod()) &&
-                Objects.equals(headers, httpRequest.getHeaders()) &&
-                Objects.equals(connectionTimeoutMs, httpRequest.getConnectionTimeoutMs()) &&
-                Objects.equals(socketTimeoutMs, httpRequest.getSocketTimeoutMs()) &&
-                Objects.equals(connectionRequestTimeoutMs, httpRequest.getConnectionRequestTimeoutMs());
+        return Objects.equals(uri, httpRequest.getUri())
+                && Objects.equals(payload, httpRequest.getPayload())
+                && Objects.equals(charset, httpRequest.getCharset())
+                && Objects.equals(httpMethod, httpRequest.getHttpMethod())
+                && Objects.equals(headers, httpRequest.getHeaders())
+                && Objects.equals(connectionTimeoutMs, httpRequest.getConnectionTimeoutMs())
+                && Objects.equals(socketTimeoutMs, httpRequest.getSocketTimeoutMs())
+                && Objects.equals(connectionRequestTimeoutMs, httpRequest.getConnectionRequestTimeoutMs());
     }
 
     @Override

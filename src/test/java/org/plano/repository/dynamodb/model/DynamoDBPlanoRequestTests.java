@@ -9,13 +9,10 @@ import org.plano.repository.dynamodb.model.DynamoDBHttpRequest;
 import org.plano.repository.dynamodb.model.DynamoDBPlanoRequest;
 import org.plano.repository.dynamodb.model.DynamoDBSchedulePolicy;
 
-/**
- * Created by ctsai on 11/28/16.
- */
 public class DynamoDBPlanoRequestTests {
     @Test
     public void testDynamoDBPlanoRequestShouldMatchPlanoRequest() {
-        Assert.assertEquals(PlanoRequest.class.getDeclaredFields().length+1,
+        Assert.assertEquals(PlanoRequest.class.getDeclaredFields().length + 1,
                 DynamoDBPlanoRequest.class.getDeclaredFields().length);
     }
 

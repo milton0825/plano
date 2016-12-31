@@ -22,21 +22,20 @@ import utils.DataTestUtils;
 
 import java.util.Date;
 
-
 public class DynamoDBRepositoryTests {
     private static final String TABLE_NAME = "PlanoRequests";
     private static final Integer LOCK_DURATION_MS = 50000;
-    private static DynamoDBRepository dynamoDBRepository;
-    private static AmazonDynamoDB dynamoDB;
-    private static DynamoDBMapper mapper;
+    private static DynamoDBRepository sDynamoDBRepository;
+    private static AmazonDynamoDB sDynamoDB;
+    private static DynamoDBMapper sDynamoDBMapper;
 
     @BeforeClass
     public static void beforeClass() {
-        dynamoDB = DynamoDBEmbedded.create().amazonDynamoDB();
-        mapper = new DynamoDBMapper(dynamoDB);
-        dynamoDBRepository = new DynamoDBRepository();
-        dynamoDBRepository.setDynamoDBMapper(mapper);
-        dynamoDBRepository.setLockDurationMs(LOCK_DURATION_MS);
+        sDynamoDB = DynamoDBEmbedded.create().amazonDynamoDB();
+        sDynamoDBMapper = new DynamoDBMapper(sDynamoDB);
+        sDynamoDBRepository = new DynamoDBRepository();
+        sDynamoDBRepository.setDynamoDBMapper(sDynamoDBMapper);
+        sDynamoDBRepository.setLockDurationMs(LOCK_DURATION_MS);
     }
 
     @Before
@@ -54,67 +53,67 @@ public class DynamoDBRepositoryTests {
     @Test
     public void testAddRequest() throws InvalidRequestException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
-        dynamoDBRepository.addRequest(planoRequest);
-        long numberOfItems = dynamoDB.describeTable(TABLE_NAME).getTable().getItemCount();
+        sDynamoDBRepository.addRequest(planoRequest);
+        long numberOfItems = sDynamoDB.describeTable(TABLE_NAME).getTable().getItemCount();
 
         Assert.assertEquals(1L, numberOfItems);
     }
 
     @Test(expected = InvalidRequestException.class)
     public void testAddRequestInputIsNull() throws InvalidRequestException {
-        dynamoDBRepository.addRequest(null);
+        sDynamoDBRepository.addRequest(null);
     }
 
     @Test
     public void testGetRequest() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
-        dynamoDBRepository.addRequest(planoRequest);
-        PlanoRequest retrievedRequest = dynamoDBRepository.getRequest(planoRequest.getRequestID());
+        sDynamoDBRepository.addRequest(planoRequest);
+        PlanoRequest retrievedRequest = sDynamoDBRepository.getRequest(planoRequest.getRequestID());
 
         Assert.assertEquals(retrievedRequest, planoRequest);
     }
 
     @Test(expected = ResourceNotFoundException.class)
     public void testGetRequestNotExist() throws ResourceNotFoundException {
-        dynamoDBRepository.getRequest("123");
+        sDynamoDBRepository.getRequest("123");
     }
 
     @Test
     public void testUpdateRequest() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
-        dynamoDBRepository.addRequest(planoRequest);
+        sDynamoDBRepository.addRequest(planoRequest);
         planoRequest.setExecutionTime(new Date());
-        dynamoDBRepository.updateRequest(planoRequest);
-        PlanoRequest retrievedRequest = dynamoDBRepository.getRequest(planoRequest.getRequestID());
+        sDynamoDBRepository.updateRequest(planoRequest);
+        PlanoRequest retrievedRequest = sDynamoDBRepository.getRequest(planoRequest.getRequestID());
 
         Assert.assertEquals(planoRequest, retrievedRequest);
     }
 
     @Test(expected = InvalidRequestException.class)
     public void testUpdateRequestWithInvalidRequest() throws PlanoException {
-        dynamoDBRepository.updateRequest(null);
+        sDynamoDBRepository.updateRequest(null);
     }
 
     @Test(expected = ResourceNotFoundException.class)
     public void testRemoveRequest() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
-        dynamoDBRepository.addRequest(planoRequest);
-        dynamoDBRepository.removeRequest(planoRequest.getRequestID());
-        dynamoDBRepository.getRequest(planoRequest.getRequestID());
+        sDynamoDBRepository.addRequest(planoRequest);
+        sDynamoDBRepository.removeRequest(planoRequest.getRequestID());
+        sDynamoDBRepository.getRequest(planoRequest.getRequestID());
 
         Assert.fail("PlanoRequest is not deleted successfully.");
     }
 
     @Test(expected = ResourceNotFoundException.class)
     public void testRemoveRequestNotExist() throws PlanoException {
-        dynamoDBRepository.removeRequest("123");
+        sDynamoDBRepository.removeRequest("123");
     }
 
     @Test
     public void testFindNextRequestAndLockReturnCorrectRequest() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
-        dynamoDBRepository.addRequest(planoRequest);
-        PlanoRequest retrievedRequest = dynamoDBRepository.findNextRequestAndLock();
+        sDynamoDBRepository.addRequest(planoRequest);
+        PlanoRequest retrievedRequest = sDynamoDBRepository.findNextRequestAndLock();
 
         Assert.assertEquals(planoRequest, retrievedRequest);
     }
@@ -124,8 +123,8 @@ public class DynamoDBRepositoryTests {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
         Date futureDate = new Date(System.currentTimeMillis() + 100000L);
         planoRequest.setExecutionTime(futureDate);
-        dynamoDBRepository.addRequest(planoRequest);
-        PlanoRequest nextPlanoRequest = dynamoDBRepository.findNextRequestAndLock();
+        sDynamoDBRepository.addRequest(planoRequest);
+        PlanoRequest nextPlanoRequest = sDynamoDBRepository.findNextRequestAndLock();
 
         Assert.assertNull(nextPlanoRequest);
     }
@@ -133,9 +132,9 @@ public class DynamoDBRepositoryTests {
     @Test
     public void testFindNextRequestAndLockNotReturnLockedRequest() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
-        dynamoDBRepository.addRequest(planoRequest);
-        dynamoDBRepository.findNextRequestAndLock();
-        PlanoRequest retrievedRequest = dynamoDBRepository.findNextRequestAndLock();
+        sDynamoDBRepository.addRequest(planoRequest);
+        sDynamoDBRepository.findNextRequestAndLock();
+        PlanoRequest retrievedRequest = sDynamoDBRepository.findNextRequestAndLock();
 
         Assert.assertNull(retrievedRequest);
     }
@@ -143,26 +142,26 @@ public class DynamoDBRepositoryTests {
     @Test
     public void testUpdateRequestAndUnlock() throws PlanoException {
         PlanoRequest planoRequest = DataTestUtils.createPlanoRequest();
-        dynamoDBRepository.addRequest(planoRequest);
-        dynamoDBRepository.findNextRequestAndLock();
-        dynamoDBRepository.updateRequestAndUnlock(planoRequest);
-        dynamoDBRepository.findNextRequestAndLock();
+        sDynamoDBRepository.addRequest(planoRequest);
+        sDynamoDBRepository.findNextRequestAndLock();
+        sDynamoDBRepository.updateRequestAndUnlock(planoRequest);
+        sDynamoDBRepository.findNextRequestAndLock();
     }
 
     private CreateTableResult createPlanoRequestsTable() {
-        CreateTableRequest request = mapper.generateCreateTableRequest(DynamoDBPlanoRequest.class)
+        CreateTableRequest request = sDynamoDBMapper.generateCreateTableRequest(DynamoDBPlanoRequest.class)
                 .withProvisionedThroughput(new ProvisionedThroughput()
                         .withReadCapacityUnits(5L)
                         .withWriteCapacityUnits(6L));
 
-        CreateTableResult createTableResult = dynamoDB.createTable(request);
+        CreateTableResult createTableResult = sDynamoDB.createTable(request);
 
         return createTableResult;
     }
 
     private DeleteTableResult deletePlanoRequestsTable() {
-        DeleteTableRequest request = mapper.generateDeleteTableRequest(DynamoDBPlanoRequest.class);
-        DeleteTableResult deleteTableResult = dynamoDB.deleteTable(request);
+        DeleteTableRequest request = sDynamoDBMapper.generateDeleteTableRequest(DynamoDBPlanoRequest.class);
+        DeleteTableResult deleteTableResult = sDynamoDB.deleteTable(request);
 
         return deleteTableResult;
     }

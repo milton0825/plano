@@ -26,8 +26,8 @@ public class PlanoProcessor {
 
     /**
      * Get {@link PlanoRequest} from {@link Repository}.
-     * @param requestID RequestID.
-     * @return {@link PlanoResponse}.
+     * @param requestID RequestID
+     * @return {@link PlanoResponse}
      */
     public PlanoResponse getRequest(String requestID) {
         PlanoResponse planoResponse = new PlanoResponse();
@@ -46,8 +46,8 @@ public class PlanoProcessor {
 
     /**
      * Add {@link PlanoRequest} to {@link Repository}.
-     * @param planoRequest {@link PlanoRequest}.
-     * @return {@link PlanoResponse}.
+     * @param planoRequest {@link PlanoRequest}
+     * @return {@link PlanoResponse}
      */
     public PlanoResponse addRequest(PlanoRequest planoRequest) {
         PlanoResponse planoResponse = new PlanoResponse();
@@ -71,9 +71,9 @@ public class PlanoProcessor {
 
     /**
      * Update {@link PlanoRequest} in {@link Repository}.
-     * @param requestID RequestID.
-     * @param planoRequest {@link PlanoRequest}.
-     * @return {@link PlanoResponse}.
+     * @param requestID RequestID
+     * @param planoRequest {@link PlanoRequest}
+     * @return {@link PlanoResponse}
      */
     public PlanoResponse updateRequest(String requestID, PlanoRequest planoRequest) {
         PlanoResponse planoResponse = new PlanoResponse();
@@ -99,8 +99,8 @@ public class PlanoProcessor {
 
     /**
      * Removes {@link PlanoRequest} from {@link Repository} with RequestID.
-     * @param requestID RequestID.
-     * @return {@link PlanoResponse}.
+     * @param requestID RequestID
+     * @return {@link PlanoResponse}
      */
     public PlanoResponse removeRequest(String requestID) {
         PlanoResponse planoResponse = new PlanoResponse();

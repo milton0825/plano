@@ -7,10 +7,7 @@ import org.plano.repository.dynamodb.model.DynamoDBSchedulePolicy;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by ctsai on 11/28/16.
- */
-public class DynamoDBTestUtils {
+public final class DynamoDBTestUtils {
 
     public static DynamoDBHttpRequest createDynamoDBHttpRequest() {
         DynamoDBHttpRequest dynamoDBHttpRequest = new DynamoDBHttpRequest();

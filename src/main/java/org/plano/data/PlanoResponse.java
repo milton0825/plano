@@ -1,6 +1,5 @@
 package org.plano.data;
 
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**

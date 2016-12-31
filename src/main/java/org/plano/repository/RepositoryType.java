@@ -12,6 +12,9 @@ public enum RepositoryType {
         this.value = value;
     }
 
+    /**
+     * @return the string value
+     */
     public String value() {
         return value;
     }
