@@ -1,4 +1,4 @@
-package unit.worker;
+package org.plano.worker;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
@@ -22,13 +22,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.plano.data.HttpRequest;
 import org.plano.worker.HttpEndpointInvoker;
+import utils.DataTestUtils;
 
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by ctsai on 11/19/16.
- */
 public class HttpEndpointInvokerTests {
 
     @Mock
@@ -57,7 +55,7 @@ public class HttpEndpointInvokerTests {
         File file = new File("src/test/resources/HttpRequestGet.json");
         HttpRequest httpRequest = objectMapper.readValue(file, HttpRequest.class);
 
-        HttpResponse httpResponse = createHttpResponse(HttpStatus.SC_OK);
+        HttpResponse httpResponse = DataTestUtils.createHttpResponse(HttpStatus.SC_OK);
         Mockito.when(httpClient.execute(Mockito.any(HttpUriRequest.class)))
                 .thenReturn(httpResponse);
 
@@ -86,7 +84,7 @@ public class HttpEndpointInvokerTests {
         File file = new File("src/test/resources/HttpRequestPost.json");
         HttpRequest httpRequest = objectMapper.readValue(file, HttpRequest.class);
 
-        HttpResponse httpResponse = createHttpResponse(HttpStatus.SC_OK);
+        HttpResponse httpResponse = DataTestUtils.createHttpResponse(HttpStatus.SC_OK);
         Mockito.when(httpClient.execute(Mockito.any(HttpUriRequest.class)))
                 .thenReturn(httpResponse);
 
@@ -116,7 +114,7 @@ public class HttpEndpointInvokerTests {
         File file = new File("src/test/resources/HttpRequestPut.json");
         HttpRequest httpRequest = objectMapper.readValue(file, HttpRequest.class);
 
-        HttpResponse httpResponse = createHttpResponse(HttpStatus.SC_OK);
+        HttpResponse httpResponse = DataTestUtils.createHttpResponse(HttpStatus.SC_OK);
         Mockito.when(httpClient.execute(Mockito.any(HttpUriRequest.class)))
                 .thenReturn(httpResponse);
 
@@ -146,7 +144,7 @@ public class HttpEndpointInvokerTests {
         File file = new File("src/test/resources/HttpRequestDelete.json");
         HttpRequest httpRequest = objectMapper.readValue(file, HttpRequest.class);
 
-        HttpResponse httpResponse = createHttpResponse(HttpStatus.SC_OK);
+        HttpResponse httpResponse = DataTestUtils.createHttpResponse(HttpStatus.SC_OK);
         Mockito.when(httpClient.execute(Mockito.any(HttpUriRequest.class)))
                 .thenReturn(httpResponse);
 
@@ -179,11 +177,5 @@ public class HttpEndpointInvokerTests {
                 .thenThrow(IOException.class);
 
         Assert.assertFalse(httpEndpointInvoker.invoke(httpRequest));
-    }
-
-    private BasicHttpResponse createHttpResponse(int statusCode) {
-        ProtocolVersion protocolVersion = new ProtocolVersion("HTTP", 1, 0);
-        StatusLine statusLine = new BasicStatusLine(protocolVersion, statusCode, "good");
-        return new BasicHttpResponse(statusLine);
     }
 }

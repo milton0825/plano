@@ -1,4 +1,4 @@
-package unit.repository.dynamodb;
+package org.plano.repository.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -17,7 +17,6 @@ import org.plano.data.PlanoRequest;
 import org.plano.exception.InvalidRequestException;
 import org.plano.exception.PlanoException;
 import org.plano.exception.ResourceNotFoundException;
-import org.plano.repository.dynamodb.DynamoDBRepository;
 import org.plano.repository.dynamodb.model.DynamoDBPlanoRequest;
 import utils.DataTestUtils;
 
@@ -34,11 +33,10 @@ public class DynamoDBRepositoryTests {
     @BeforeClass
     public static void beforeClass() {
         dynamoDB = DynamoDBEmbedded.create().amazonDynamoDB();
-        DynamoDBRepository.setAmazonDynamoDB(dynamoDB);
-        dynamoDBRepository = new DynamoDBRepository();
-        dynamoDBRepository.setLockDurationMs(LOCK_DURATION_MS);
-        dynamoDBRepository.init();
         mapper = new DynamoDBMapper(dynamoDB);
+        dynamoDBRepository = new DynamoDBRepository();
+        dynamoDBRepository.setDynamoDBMapper(mapper);
+        dynamoDBRepository.setLockDurationMs(LOCK_DURATION_MS);
     }
 
     @Before
@@ -107,7 +105,7 @@ public class DynamoDBRepositoryTests {
         Assert.fail("PlanoRequest is not deleted successfully.");
     }
 
-    @Test(expected = InvalidRequestException.class)
+    @Test(expected = ResourceNotFoundException.class)
     public void testRemoveRequestNotExist() throws PlanoException {
         dynamoDBRepository.removeRequest("123");
     }

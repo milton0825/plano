@@ -4,7 +4,7 @@ package org.plano.repository;
  * This enum defines the type of repository.
  */
 public enum RepositoryType {
-    DYNAMODB("DynamoDB");
+    DYNAMODB("dynamodb");
 
     private final String value;
 

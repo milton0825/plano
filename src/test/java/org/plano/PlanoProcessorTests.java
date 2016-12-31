@@ -1,4 +1,4 @@
-package unit;
+package org.plano;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -113,13 +113,13 @@ public class PlanoProcessorTests {
     }
 
     @Test
-    public void testRemoveRequestInvalidInput() throws InvalidRequestException {
-        Mockito.doThrow(new InvalidRequestException("Invalid request."))
+    public void testRemoveRequestResourceNotFound() throws ResourceNotFoundException {
+        Mockito.doThrow(new ResourceNotFoundException("Resource not found"))
                 .when(mockedRepositoryWrapper).removeRequest(REQUEST_ID);
 
         PlanoResponse planoResponse = planoProcessor.removeRequest(REQUEST_ID);
 
-        Assert.assertEquals(PlanoStatus.INVALID_INPUT, planoResponse.getPlanoStatus());
+        Assert.assertEquals(PlanoStatus.NOT_FOUND, planoResponse.getPlanoStatus());
     }
 
     @After

@@ -6,19 +6,28 @@ import org.plano.exception.PlanoException;
 import org.plano.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * Plano Worker is responsible for finding requests from database and
  * calling the endpoint.
  */
+@Component
 public class PlanoWorker implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(PlanoWorker.class);
 
     @Value("${plano.worker.sleep.time.ms}")
     private Long sleepTimeMs;
 
+    @Autowired
+    @Qualifier("RepositoryWrapper")
     private Repository<PlanoRequest> repositoryWrapper;
+
+    @Autowired
+    @Qualifier("HttpEndpointInvoker")
     private EndpointInvoker<HttpRequest> httpEndpointInvoker;
 
     /**
@@ -26,8 +35,9 @@ public class PlanoWorker implements Runnable {
      * @param repository {@link Repository} persistence data store.
      * @param endpointInvoker {@link EndpointInvoker} service to call endpoint.
      */
-    public PlanoWorker(Repository<PlanoRequest> repository,
-            EndpointInvoker<HttpRequest> endpointInvoker) {
+    @Autowired
+    public PlanoWorker(@Qualifier("RepositoryWrapper") Repository<PlanoRequest> repository,
+                       @Qualifier("HttpEndpointInvoker") EndpointInvoker<HttpRequest> endpointInvoker) {
         this.repositoryWrapper = repository;
         this.httpEndpointInvoker = endpointInvoker;
     }
@@ -54,11 +64,17 @@ public class PlanoWorker implements Runnable {
             }
 
             boolean isSuccess = httpEndpointInvoker.invoke(planoRequest.getHttpRequest());
+
             if (isSuccess) {
                 repositoryWrapper.removeRequest(planoRequest.getRequestID());
             } else {
                 planoRequest.updateForNextExecution();
-                repositoryWrapper.updateRequestAndUnlock(planoRequest);
+
+                if (planoRequest.isValid()) {
+                    repositoryWrapper.updateRequestAndUnlock(planoRequest);
+                } else {
+                    repositoryWrapper.removeRequest(planoRequest.getRequestID());
+                }
             }
         }
     }

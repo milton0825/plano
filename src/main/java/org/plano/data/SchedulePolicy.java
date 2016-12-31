@@ -18,6 +18,11 @@ public class SchedulePolicy {
     private Long executionIntervalMs;
     private Integer numberOfExecutions;
 
+    public boolean isValid() {
+        return numberOfExecutions > 0 &&
+                multiplier >= 1;
+    }
+
     public Integer getMultiplier() {
         return multiplier;
     }
