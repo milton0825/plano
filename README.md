@@ -1,5 +1,5 @@
 # Plano
-[![Build Status](https://travis-ci.org/milton0825/plano.svg?branch=master)](https://travis-ci.org/milton0825/plano)
+[![Build Status](https://travis-ci.org/milton0825/plano.svg?branch=master)](https://travis-ci.org/milton0825/plano) [![codecov](https://codecov.io/gh/milton0825/plano/branch/master/graph/badge.svg)](https://codecov.io/gh/milton0825/plano)
 
 Plano is a simple scheduling service that allows clients to schedule asynchronous redirected HTTP requests.
 
