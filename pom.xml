@@ -34,6 +34,7 @@
 		<sqlite4java.version>1.0.392</sqlite4java.version>
 		<maven.dependency.version>2.10</maven.dependency.version>
 		<maven.surefire.version>2.18.1</maven.surefire.version>
+		<jacoco.maven.version>0.7.7.201606060606</jacoco.maven.version>
 	</properties>
 
 	<dependencies>
@@ -96,6 +97,26 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.maven.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 
 			<!--<plugin>-->
