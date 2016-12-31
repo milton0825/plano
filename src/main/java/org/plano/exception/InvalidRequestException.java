@@ -6,7 +6,7 @@ package org.plano.exception;
 public class InvalidRequestException extends PlanoException {
 
     /**
-     * Constructor
+     * Constructor.
      * @param message {@link String}
      */
     public InvalidRequestException(String message) {
@@ -14,7 +14,7 @@ public class InvalidRequestException extends PlanoException {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param cause {@link Throwable}
      */
     public InvalidRequestException(Throwable cause) {
@@ -22,7 +22,7 @@ public class InvalidRequestException extends PlanoException {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * @param message {@link String}
      * @param cause {@link Throwable}
      */

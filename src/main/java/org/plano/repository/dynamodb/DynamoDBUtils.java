@@ -14,11 +14,11 @@ public final class DynamoDBUtils {
 
     /**
      * Create a {@link PlanoRequest} with {@link DynamoDBPlanoRequest}.
-     * @param dynamoDBPlanoRequest {@link DynamoDBPlanoRequest}.
-     * @return {@link PlanoRequest}.
-     * @throws IllegalArgumentException when the {@link DynamoDBPlanoRequest} is invalid.
+     * @param dynamoDBPlanoRequest {@link DynamoDBPlanoRequest}
+     * @return {@link PlanoRequest}
+     * @throws IllegalArgumentException when the {@link DynamoDBPlanoRequest} is invalid
      */
-    static public PlanoRequest createPlanoRequest(DynamoDBPlanoRequest dynamoDBPlanoRequest)
+    public static PlanoRequest createPlanoRequest(DynamoDBPlanoRequest dynamoDBPlanoRequest)
             throws IllegalArgumentException {
         if (dynamoDBPlanoRequest == null) {
             throw new IllegalArgumentException("DynamoDBPlanoRequest is null.");
@@ -38,11 +38,11 @@ public final class DynamoDBUtils {
 
     /**
      * Create a {@link DynamoDBPlanoRequest} with {@link PlanoRequest}.
-     * @param planoRequest {@link PlanoRequest}.
-     * @return {@link DynamoDBPlanoRequest}.
-     * @throws IllegalArgumentException when {@link PlanoRequest} is invalid.
+     * @param planoRequest {@link PlanoRequest}
+     * @return {@link DynamoDBPlanoRequest}
+     * @throws IllegalArgumentException when {@link PlanoRequest} is invalid
      */
-    static public DynamoDBPlanoRequest createDynamoDBPlanoRequest(PlanoRequest planoRequest)
+    public static DynamoDBPlanoRequest createDynamoDBPlanoRequest(PlanoRequest planoRequest)
             throws IllegalArgumentException {
         if (planoRequest == null) {
             throw new IllegalArgumentException("PlanoRequest is null.");
@@ -62,12 +62,12 @@ public final class DynamoDBUtils {
 
     /**
      * Create {@link SchedulePolicy} with {@link DynamoDBSchedulePolicy}.
-     * @param dynamoDBSchedulePolicy {@link DynamoDBSchedulePolicy}.
-     * @return {@link SchedulePolicy}.
-     * @throws IllegalArgumentException when {@link DynamoDBSchedulePolicy} is invalid.
+     * @param dynamoDBSchedulePolicy {@link DynamoDBSchedulePolicy}
+     * @return {@link SchedulePolicy}
+     * @throws IllegalArgumentException when {@link DynamoDBSchedulePolicy} is invalid
      */
-    static public SchedulePolicy createSchedulePolicy(DynamoDBSchedulePolicy dynamoDBSchedulePolicy)
-            throws IllegalArgumentException{
+    public static SchedulePolicy createSchedulePolicy(DynamoDBSchedulePolicy dynamoDBSchedulePolicy)
+            throws IllegalArgumentException {
         if (dynamoDBSchedulePolicy == null) {
             throw new IllegalArgumentException("DynamoDBSchedulePolicy is null.");
         }
@@ -82,11 +82,11 @@ public final class DynamoDBUtils {
 
     /**
      * Create {@link HttpRequest} with {@link DynamoDBHttpRequest}.
-     * @param dynamoDBHttpRequest {@link DynamoDBHttpRequest}.
-     * @return {@link HttpRequest}.
-     * @throws IllegalArgumentException when {@link DynamoDBHttpRequest} is invalid.
+     * @param dynamoDBHttpRequest {@link DynamoDBHttpRequest}
+     * @return {@link HttpRequest}
+     * @throws IllegalArgumentException when {@link DynamoDBHttpRequest} is invalid
      */
-    static public HttpRequest createHttpRequest(DynamoDBHttpRequest dynamoDBHttpRequest)
+    public static HttpRequest createHttpRequest(DynamoDBHttpRequest dynamoDBHttpRequest)
             throws IllegalArgumentException {
         if (dynamoDBHttpRequest == null) {
             throw new IllegalArgumentException("DynamoDBHttpRequest is null.");
@@ -107,11 +107,11 @@ public final class DynamoDBUtils {
 
     /**
      * Create {@link DynamoDBHttpRequest} with {@link HttpRequest}.
-     * @param httpRequest {@link HttpRequest}.
-     * @return {@link DynamoDBHttpRequest}.
-     * @throws IllegalArgumentException when {@link HttpRequest} is invalid.
+     * @param httpRequest {@link HttpRequest}
+     * @return {@link DynamoDBHttpRequest}
+     * @throws IllegalArgumentException when {@link HttpRequest} is invalid
      */
-    static public DynamoDBHttpRequest createDynamoDBHttpRequest(HttpRequest httpRequest)
+    public static DynamoDBHttpRequest createDynamoDBHttpRequest(HttpRequest httpRequest)
             throws IllegalArgumentException {
         if (httpRequest == null) {
             throw new IllegalArgumentException("HttpRequest is null.");
@@ -132,11 +132,11 @@ public final class DynamoDBUtils {
 
     /**
      * Create {@link DynamoDBSchedulePolicy} with {@link SchedulePolicy}.
-     * @param schedulePolicy {@link SchedulePolicy}.
-     * @return {@link DynamoDBSchedulePolicy}.
-     * @throws IllegalArgumentException when {@link SchedulePolicy} is invalid.
+     * @param schedulePolicy {@link SchedulePolicy}
+     * @return {@link DynamoDBSchedulePolicy}
+     * @throws IllegalArgumentException when {@link SchedulePolicy} is invalid
      */
-    static public DynamoDBSchedulePolicy createDynamoDBSchedulePolicy(SchedulePolicy schedulePolicy)
+    public static DynamoDBSchedulePolicy createDynamoDBSchedulePolicy(SchedulePolicy schedulePolicy)
             throws IllegalArgumentException {
         if (schedulePolicy == null) {
             throw new IllegalArgumentException("SchedulePolicy is null.");

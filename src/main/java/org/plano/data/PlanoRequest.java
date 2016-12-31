@@ -27,21 +27,28 @@ public class PlanoRequest {
     @NotNull
     private SchedulePolicy schedulePolicy;
 
+    /**
+     * Update the content of {@link PlanoRequest} for next execution.
+     */
     public void updateForNextExecution() {
         Integer numberOfExecutions = schedulePolicy.getNumberOfExecutions();
-        schedulePolicy.setNumberOfExecutions(numberOfExecutions-1);
+        schedulePolicy.setNumberOfExecutions(numberOfExecutions - 1);
 
         Long executionIntervalMs = schedulePolicy.getExecutionIntervalMs();
         Integer multiplier = schedulePolicy.getMultiplier();
 
         executionIntervalMs = executionIntervalMs * multiplier;
-        executionIntervalMs = executionIntervalMs > Constants.MAX_EXECUTION_INTERVAL_MS ?
-                Constants.MAX_EXECUTION_INTERVAL_MS : executionIntervalMs;
+        executionIntervalMs = executionIntervalMs > Constants.MAX_EXECUTION_INTERVAL_MS
+                ? Constants.MAX_EXECUTION_INTERVAL_MS : executionIntervalMs;
 
         schedulePolicy.setExecutionIntervalMs(executionIntervalMs);
         executionTime = new Date(System.currentTimeMillis() + executionIntervalMs);
     }
 
+    /**
+     * Check if {@link SchedulePolicy} is valid.
+     * @return true if {@link SchedulePolicy} is valid
+     */
     public boolean isValid() {
         final Field[] fields = this.getClass().getDeclaredFields();
         try {
@@ -55,8 +62,7 @@ public class PlanoRequest {
             LOG.error(message, e);
         }
 
-        return schedulePolicy.isValid() &&
-                httpRequest.isValid();
+        return schedulePolicy.isValid() && httpRequest.isValid();
     }
 
     public String getRequestID() {
@@ -112,12 +118,12 @@ public class PlanoRequest {
         if (!(o instanceof PlanoRequest)) {
             return false;
         }
-        PlanoRequest planoRequest = (PlanoRequest)o;
+        PlanoRequest planoRequest = (PlanoRequest) o;
 
-        return Objects.equals(requestID, planoRequest.getRequestID()) &&
-                Objects.equals(httpRequest, planoRequest.getHttpRequest()) &&
-                Objects.equals(executionTime, planoRequest.getExecutionTime()) &&
-                Objects.equals(schedulePolicy, planoRequest.getSchedulePolicy());
+        return Objects.equals(requestID, planoRequest.getRequestID())
+                && Objects.equals(httpRequest, planoRequest.getHttpRequest())
+                && Objects.equals(executionTime, planoRequest.getExecutionTime())
+                && Objects.equals(schedulePolicy, planoRequest.getSchedulePolicy());
     }
 
     @Override

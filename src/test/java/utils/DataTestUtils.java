@@ -15,7 +15,7 @@ import java.util.UUID;
 /**
  * Utility class to create Plano POJOs.
  */
-public class DataTestUtils {
+public final class DataTestUtils {
     public static HttpRequest createHttpRequest() {
         HttpRequest httpRequest = new HttpRequest();
         httpRequest.setUri("http://uri");

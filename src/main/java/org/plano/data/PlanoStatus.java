@@ -15,6 +15,9 @@ public enum PlanoStatus {
         this.value = value;
     }
 
+    /**
+     * @return string value
+     */
     public String value() {
         return value;
     }

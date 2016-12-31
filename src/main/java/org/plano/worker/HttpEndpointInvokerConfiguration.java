@@ -23,8 +23,12 @@ public class HttpEndpointInvokerConfiguration {
     @Value("${http.connection.request.timeout.ms}")
     private Integer httpConnectionRequestTimeoutMs;
 
+    /**
+     * Create a {@link HttpClient} with customized configuration.
+     * @return {@link HttpClient}
+     */
     @Bean
-    HttpClient createHttpClient() {
+    public HttpClient createHttpClient() {
         RequestConfig requestConfig = RequestConfig.custom()
                 .setSocketTimeout(httpSocketTimeoutMs)
                 .setConnectTimeout(httpConnectionTimeoutInMs)
@@ -35,4 +39,9 @@ public class HttpEndpointInvokerConfiguration {
                 .setDefaultRequestConfig(requestConfig)
                 .build();
     }
+
+    /**
+     * Constructor. To pass checkstyle.
+     */
+    public HttpEndpointInvokerConfiguration() {}
 }

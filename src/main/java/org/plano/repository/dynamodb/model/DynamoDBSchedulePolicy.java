@@ -1,6 +1,5 @@
 package org.plano.repository.dynamodb.model;
 
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 
 import java.util.Objects;
@@ -47,12 +46,11 @@ public class DynamoDBSchedulePolicy {
         if (!(o instanceof DynamoDBSchedulePolicy)) {
             return false;
         }
-        DynamoDBSchedulePolicy dynamoDBSchedulePolicy = (DynamoDBSchedulePolicy)o;
+        DynamoDBSchedulePolicy dynamoDBSchedulePolicy = (DynamoDBSchedulePolicy) o;
 
-        return Objects.equals(multiplier, dynamoDBSchedulePolicy.getMultiplier()) &&
-                Objects.equals(executionIntervalMs,
-                        dynamoDBSchedulePolicy.getExecutionIntervalMs()) &&
-                Objects.equals(numberOfExecutions, dynamoDBSchedulePolicy.getNumberOfExecutions());
+        return Objects.equals(multiplier, dynamoDBSchedulePolicy.getMultiplier())
+                && Objects.equals(executionIntervalMs, dynamoDBSchedulePolicy.getExecutionIntervalMs())
+                && Objects.equals(numberOfExecutions, dynamoDBSchedulePolicy.getNumberOfExecutions());
     }
 
     @Override

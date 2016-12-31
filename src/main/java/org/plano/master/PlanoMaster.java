@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -31,6 +30,9 @@ public class PlanoMaster implements Master {
     @Value("${plano.master.schedule.period.ms}")
     private Long schedulePeriodMs;
 
+    /**
+     * Initialize {@link PlanoMaster} with a fixed-size thread pool.
+     */
     @PostConstruct
     public void init() {
         scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(threadPoolSize);
@@ -55,6 +57,9 @@ public class PlanoMaster implements Master {
         scheduledThreadPoolExecutor.shutdown();
     }
 
+    /**
+     * Calls shutdown method.
+     */
     @PreDestroy
     public void destroy() {
         shutdown();

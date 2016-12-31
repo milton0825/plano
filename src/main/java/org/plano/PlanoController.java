@@ -25,8 +25,8 @@ public class PlanoController {
 
     /**
      * GET method to retrieve {@link PlanoRequest} with RequestID.
-     * @param requestID RequestID.
-     * @return {@link ResponseEntity}.
+     * @param requestID RequestID
+     * @return {@link ResponseEntity}
      */
     @GetMapping(path = "/requests/{requestID}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,8 +39,8 @@ public class PlanoController {
 
     /**
      * POST method to save {@link PlanoRequest} to persistence data store.
-     * @param planoRequest {@link PlanoRequest}.
-     * @return {@link ResponseEntity}.
+     * @param planoRequest {@link PlanoRequest}
+     * @return {@link ResponseEntity}
      */
     @PostMapping(path = "/requests",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -54,9 +54,9 @@ public class PlanoController {
 
     /**
      * PUT method to update {@link PlanoRequest} to persistence data store.
-     * @param requestID RequestID.
-     * @param planoRequest {@link PlanoRequest}.
-     * @return {@link ResponseEntity}.
+     * @param requestID RequestID
+     * @param planoRequest {@link PlanoRequest}
+     * @return {@link ResponseEntity}
      */
     @PutMapping(path = "/requests/{requestID}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -70,8 +70,8 @@ public class PlanoController {
 
     /**
      * DELETE method to remove {@link PlanoRequest} from persistence data store with RequestID.
-     * @param requestID RequestID.
-     * @return {@link ResponseEntity}.
+     * @param requestID RequestID
+     * @return {@link ResponseEntity}
      */
     @DeleteMapping(path = "/requests/{requestID}",
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -84,7 +84,7 @@ public class PlanoController {
 
     /**
      * GET method to return system health.
-     * @return {@link ResponseEntity}.
+     * @return {@link ResponseEntity}
      */
     @GetMapping(path = "/health", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity health() {
@@ -97,8 +97,8 @@ public class PlanoController {
 
     /**
      * Compose {@link ResponseEntity} based on {@link PlanoResponse}.
-     * @param planoResponse {@link PlanoResponse}.
-     * @return {@link ResponseEntity}.
+     * @param planoResponse {@link PlanoResponse}
+     * @return {@link ResponseEntity}
      */
     private ResponseEntity<PlanoResponse> composeResponseEntity(PlanoResponse planoResponse) {
         ResponseEntity<PlanoResponse> responseEntity = null;
@@ -113,6 +113,7 @@ public class PlanoController {
                 responseEntity = new ResponseEntity<>(planoResponse, HttpStatus.NOT_FOUND);
                 break;
             case INVALID_INPUT:
+            default:
                 responseEntity = new ResponseEntity<>(planoResponse, HttpStatus.BAD_REQUEST);
                 break;
         }

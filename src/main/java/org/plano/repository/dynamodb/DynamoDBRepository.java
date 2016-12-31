@@ -1,6 +1,8 @@
 package org.plano.repository.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBSaveExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.marshallers.DateToStringMarshaller;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
@@ -36,9 +38,9 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
 
     /**
      * Get {@link PlanoRequest} with RequestID.
-     * @param requestID {@link String} RequestID.
+     * @param requestID {@link String} RequestID
      * @return {@link PlanoRequest}
-     * @throws ResourceNotFoundException if resource not found in repository.
+     * @throws ResourceNotFoundException if resource not found in repository
      */
     @Override
     public PlanoRequest getRequest(String requestID) throws ResourceNotFoundException {
@@ -52,10 +54,10 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
     }
 
     /**
-     * Save {@link PlanoRequest} to DynamoDBRepository
+     * Save {@link PlanoRequest} to {@link DynamoDBRepository}.
      * @param planoRequest {@link PlanoRequest}
      * @return {@link String}
-     * @throws InvalidRequestException if {@link PlanoRequest} is invalid.
+     * @throws InvalidRequestException if {@link PlanoRequest} is invalid
      */
     @Override
     public String addRequest(PlanoRequest planoRequest) throws InvalidRequestException {
@@ -75,7 +77,7 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
     /**
      * Update the {@link PlanoRequest} to {@link DynamoDBRepository}.
      * @param planoRequest {@link PlanoRequest}
-     * @throws InvalidRequestException if {@link PlanoRequest} is invalid.
+     * @throws InvalidRequestException if {@link PlanoRequest} is invalid
      */
     @Override
     public void updateRequest(PlanoRequest planoRequest) throws InvalidRequestException {
@@ -90,8 +92,8 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
 
     /**
      * Remove the {@link PlanoRequest} from {@link DynamoDBRepository}.
-     * @param requestID T Request.
-     * @throws InvalidRequestException if {@link PlanoRequest} does not exist.
+     * @param requestID T Request
+     * @throws ResourceNotFoundException if {@link PlanoRequest} does not exist
      */
     @Override
     public void removeRequest(String requestID) throws ResourceNotFoundException {
@@ -105,7 +107,7 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
 
     /**
      * Find the next request to execute and lock.
-     * @return {@link PlanoRequest}, null if can not find request.
+     * @return {@link PlanoRequest}, null if can not find request
      */
     @Override
     public PlanoRequest findNextRequestAndLock() {
@@ -124,7 +126,7 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
     /**
      * Update the {@link PlanoRequest} to {@link DynamoDBRepository} and unlock.
      * @param planoRequest {@link PlanoRequest}
-     * @throws InvalidRequestException if the {@link PlanoRequest} is invalid.
+     * @throws InvalidRequestException if the {@link PlanoRequest} is invalid
      */
     @Override
     public void updateRequestAndUnlock(PlanoRequest planoRequest) throws InvalidRequestException {

@@ -1,6 +1,5 @@
 package org.plano.data;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -19,8 +18,7 @@ public class SchedulePolicy {
     private Integer numberOfExecutions;
 
     public boolean isValid() {
-        return numberOfExecutions > 0 &&
-                multiplier >= 1;
+        return numberOfExecutions > 0 && multiplier >= 1;
     }
 
     public Integer getMultiplier() {
@@ -68,12 +66,11 @@ public class SchedulePolicy {
         if (!(o instanceof SchedulePolicy)) {
             return false;
         }
-        SchedulePolicy schedulePolicy = (SchedulePolicy)o;
+        SchedulePolicy schedulePolicy = (SchedulePolicy) o;
 
-        return Objects.equals(multiplier, schedulePolicy.getMultiplier()) &&
-                Objects.equals(executionIntervalMs,
-                        schedulePolicy.getExecutionIntervalMs()) &&
-                Objects.equals(numberOfExecutions, schedulePolicy.getNumberOfExecutions());
+        return Objects.equals(multiplier, schedulePolicy.getMultiplier())
+                && Objects.equals(executionIntervalMs, schedulePolicy.getExecutionIntervalMs())
+                && Objects.equals(numberOfExecutions, schedulePolicy.getNumberOfExecutions());
     }
 
     @Override
