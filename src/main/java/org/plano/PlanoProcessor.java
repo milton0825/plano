@@ -8,6 +8,8 @@ import org.plano.exception.ResourceNotFoundException;
 import org.plano.repository.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +20,8 @@ import org.springframework.stereotype.Component;
 public class PlanoProcessor {
     private static final Logger LOG = LoggerFactory.getLogger(PlanoProcessor.class);
 
+    @Autowired
+    @Qualifier("RepositoryWrapper")
     private Repository<PlanoRequest> repositoryWrapper;
 
     /**
@@ -105,8 +109,8 @@ public class PlanoProcessor {
 
             planoResponse.setRequestID(requestID);
             planoResponse.setPlanoStatus(PlanoStatus.SUCCESS);
-        } catch (InvalidRequestException e) {
-            planoResponse.setPlanoStatus(PlanoStatus.INVALID_INPUT);
+        } catch (ResourceNotFoundException e) {
+            planoResponse.setPlanoStatus(PlanoStatus.NOT_FOUND);
             planoResponse.setErrorMessage(e.getMessage());
         }
 

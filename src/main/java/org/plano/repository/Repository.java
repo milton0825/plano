@@ -35,9 +35,9 @@ public interface Repository<T> {
     /**
      * Remove the request from repository.
      * @param requestID <T> Request.
-     * @throws InvalidRequestException if the request is invalid.
+     * @throws ResourceNotFoundException if the request not found.
      */
-    void removeRequest(String requestID) throws InvalidRequestException;
+    void removeRequest(String requestID) throws ResourceNotFoundException;
 
     /**
      * Find the next request to execute and lock.

@@ -1,7 +1,7 @@
 package org.plano.data;
 
 /**
- * Created by ctsai on 12/13/16.
+ * The status of each request processed by Plano.
  */
 public enum PlanoStatus {
     SUCCESS("Success"),

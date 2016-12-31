@@ -1,4 +1,4 @@
-package unit.master;
+package org.plano.master;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class PlanoMasterTests {
 
         planoMaster.start();
 
-        Thread.sleep(1000);
+        Thread.sleep(1000L);
 
         planoMaster.shutdown();
 

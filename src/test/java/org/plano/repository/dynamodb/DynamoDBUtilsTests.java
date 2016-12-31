@@ -1,4 +1,4 @@
-package unit.repository.dynamodb;
+package org.plano.repository.dynamodb;
 
 import org.junit.Assert;
 import org.junit.Test;

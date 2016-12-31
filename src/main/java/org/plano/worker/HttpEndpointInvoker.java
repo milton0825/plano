@@ -5,15 +5,18 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.*;
-import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.plano.data.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -23,15 +26,11 @@ import java.util.Map;
 /**
  * This class provides methods to invoke endpoint with HTTP request.
  */
+@Component(value = "HttpEndpointInvoker")
 public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
     private static final Logger LOG = LoggerFactory.getLogger(HttpEndpointInvoker.class);
 
-    @Value("${http.connection.timeout.in.milliseconds}")
-    private Integer httpConnectionTimeoutInMilliSeconds;
-
-    @Value("${http.socket.timeout.in.milliseconds}")
-    private Integer httpSocketTimeoutInMilliSeconds;
-
+    @Autowired
     private HttpClient httpClient;
 
     /**
@@ -115,7 +114,9 @@ public class HttpEndpointInvoker implements EndpointInvoker<HttpRequest> {
             }
         }
 
-        setHttpUriRequestHeaders(httpUriRequest, httpRequest.getHeaders());
+        if (httpRequest.getHeaders() != null) {
+            setHttpUriRequestHeaders(httpUriRequest, httpRequest.getHeaders());
+        }
 
         return httpUriRequest;
     }

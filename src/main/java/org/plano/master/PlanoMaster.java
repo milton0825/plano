@@ -1,24 +1,20 @@
 package org.plano.master;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.plano.data.HttpRequest;
-import org.plano.data.PlanoRequest;
-import org.plano.repository.Repository;
-import org.plano.worker.EndpointInvoker;
-import org.plano.worker.HttpEndpointInvoker;
 import org.plano.worker.PlanoWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
  * PlanoMaster is responsible for managing a pool of {@link PlanoWorker}.
  */
+@Component(value = "PlanoMaster")
 public class PlanoMaster implements Master {
 
     private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor;
@@ -57,6 +53,11 @@ public class PlanoMaster implements Master {
     @Override
     public void shutdown() {
         scheduledThreadPoolExecutor.shutdown();
+    }
+
+    @PreDestroy
+    public void destroy() {
+        shutdown();
     }
 
     public void setThreadPoolSize(Integer threadPoolSize) {

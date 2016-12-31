@@ -1,12 +1,10 @@
 package org.plano.repository.dynamodb;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.amazonaws.services.dynamodbv2.datamodeling.marshallers.DateToStringMarshaller;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ComparisonOperator;
 import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
-import org.apache.commons.logging.Log;
 import org.plano.data.PlanoRequest;
 import org.plano.exception.InvalidRequestException;
 import org.plano.exception.PlanoException;
@@ -15,9 +13,10 @@ import org.plano.repository.Repository;
 import org.plano.repository.dynamodb.model.DynamoDBPlanoRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 
@@ -25,28 +24,15 @@ import java.util.List;
  * This class provides plano methods to interact with repository backed
  * by DynamoDB.
  */
+@Component
 public class DynamoDBRepository implements Repository<PlanoRequest> {
     private static final Logger LOG = LoggerFactory.getLogger(DynamoDBRepository.class);
 
-    private static AmazonDynamoDB amazonDynamoDB;
+    @Autowired
     private DynamoDBMapper dynamoDBMapper;
 
     @Value("${dynamodb.lock.duration.ms}")
     private Integer lockDurationMs;
-
-    public static void setAmazonDynamoDB(AmazonDynamoDB amazonDynamoDB) {
-        DynamoDBRepository.amazonDynamoDB = amazonDynamoDB;
-    }
-
-    public void setLockDurationMs(Integer lockDurationMs) {
-        this.lockDurationMs = lockDurationMs;
-    }
-
-    @PostConstruct
-    public void init() {
-        DynamoDBMapperConfig dynamoDBMapperConfig = DynamoDBMapperConfig.ConsistentReads.CONSISTENT.config();
-        dynamoDBMapper = new DynamoDBMapper(amazonDynamoDB, dynamoDBMapperConfig);
-    }
 
     /**
      * Get {@link PlanoRequest} with RequestID.
@@ -108,11 +94,11 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
      * @throws InvalidRequestException if {@link PlanoRequest} does not exist.
      */
     @Override
-    public void removeRequest(String requestID) throws InvalidRequestException {
+    public void removeRequest(String requestID) throws ResourceNotFoundException {
         DynamoDBPlanoRequest dynamoDBPlanoRequest = dynamoDBMapper.load(DynamoDBPlanoRequest.class, requestID);
         if (dynamoDBPlanoRequest == null) {
             String message = String.format("PlanoRequest with RequestID: {} does not exist", requestID);
-            throw new InvalidRequestException(message);
+            throw new ResourceNotFoundException(message);
         }
         dynamoDBMapper.delete(dynamoDBPlanoRequest);
     }
@@ -143,6 +129,14 @@ public class DynamoDBRepository implements Repository<PlanoRequest> {
     @Override
     public void updateRequestAndUnlock(PlanoRequest planoRequest) throws InvalidRequestException {
         updateRequest(planoRequest);
+    }
+
+    public void setLockDurationMs(Integer lockDurationMs) {
+        this.lockDurationMs = lockDurationMs;
+    }
+
+    public void setDynamoDBMapper(DynamoDBMapper dynamoDBMapper) {
+        this.dynamoDBMapper = dynamoDBMapper;
     }
 
     private DynamoDBPlanoRequest findNextRequest() throws PlanoException {

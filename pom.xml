@@ -24,7 +24,7 @@
 		<checkstyle.path>build/checkstyle/</checkstyle.path>
 		<java.version>1.8</java.version>
 		<httpclient.version>4.5.2</httpclient.version>
-		<mockito.version>1.9.5</mockito.version>
+		<mockito.version>1.10.19</mockito.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<jackson.version>2.8.3</jackson.version>
 		<aws.sdk.version>1.11.58</aws.sdk.version>

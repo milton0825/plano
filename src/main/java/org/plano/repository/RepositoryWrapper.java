@@ -2,8 +2,8 @@ package org.plano.repository;
 
 import org.plano.data.PlanoRequest;
 import org.plano.exception.InvalidRequestException;
-import org.plano.exception.PlanoException;
 import org.plano.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,15 +12,20 @@ import javax.annotation.PostConstruct;
 /**
  * Wrapper of repository.
  */
-@Component
+@Component(value = "RepositoryWrapper")
 public class RepositoryWrapper implements Repository<PlanoRequest> {
 
     private Repository<PlanoRequest> repository;
 
+    @Autowired
+    private RepositoryFactory repositoryFactory;
+
+    @Value("${repository.type}")
     private String repositoryType;
 
+    @PostConstruct
     public void init() {
-        repository = RepositoryFactory.create(RepositoryType.valueOf(repositoryType));
+        repository = repositoryFactory.create(RepositoryType.valueOf(repositoryType));
     }
 
     /**
@@ -58,10 +63,10 @@ public class RepositoryWrapper implements Repository<PlanoRequest> {
     /**
      * Remove the request from repository.
      * @param requestID {@link PlanoRequest} Request.
-     * @throws InvalidRequestException if the request is invalid.
+     * @throws ResourceNotFoundException if the request is not found.
      */
     @Override
-    public void removeRequest(String requestID) throws InvalidRequestException {
+    public void removeRequest(String requestID) throws ResourceNotFoundException {
         repository.removeRequest(requestID);
     }
 

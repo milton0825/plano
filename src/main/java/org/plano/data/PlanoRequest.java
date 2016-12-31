@@ -21,6 +21,7 @@ public class PlanoRequest {
     @NotNull
     private HttpRequest httpRequest;
 
+    @NotNull
     private Date executionTime;
 
     @NotNull
@@ -51,9 +52,11 @@ public class PlanoRequest {
             }
         } catch (IllegalAccessException e) {
             String message = String.format("Failed when validating PlanoRequest: {0}", this);
-            LOG.error(message, e.getCause());
+            LOG.error(message, e);
         }
-        return true;
+
+        return schedulePolicy.isValid() &&
+                httpRequest.isValid();
     }
 
     public String getRequestID() {
