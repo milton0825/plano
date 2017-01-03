@@ -1,4 +1,4 @@
-package functional;
+package org.plano;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -17,7 +17,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.plano.PlanoApplication;
 import org.plano.data.PlanoRequest;
 import org.plano.data.PlanoResponse;
 import org.plano.master.PlanoMaster;
